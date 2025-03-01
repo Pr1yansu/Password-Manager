@@ -1,0 +1,1 @@
+package com.webweeb.backend.dto;import lombok.*;@Getter@Setter@Builder@AllArgsConstructor@NoArgsConstructorpublic class RoleDTO extends BaseDTO {    private String name;}
