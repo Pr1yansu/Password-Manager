@@ -1,17 +1,10 @@
-# Use a base image with JDK 23 (or other versions)
-FROM openjdk:23-jdk-slim
+# Compile the Application
+FROM maven:3.8.6-openjdk-17-slim AS build
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the build files from the target directory
-COPY target/*.jar app.jar
-
-# Expose the port (Render assigns a dynamic port)
+# Run the Application
+FROM openjdk:17-jdk-slim
+COPY --from=build /target/backend-0.0.1-SNAPSHOT.jar /app.jar
 EXPOSE 8080
-
-# Set environment variables
-ENV PORT=8080
-
-# Run the application
-CMD ["sh", "-c", "java -jar app.jar --server.port=$PORT"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
