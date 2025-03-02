@@ -16,6 +16,8 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PasswordAccountDTO extends BaseDTO {
 
+    @NotBlank(message = "Title cannot be blank")
+    private String title;
     @NotBlank(message = "Name cannot be blank")
     private String username;
     @NotBlank(message = "Password cannot be blank")
