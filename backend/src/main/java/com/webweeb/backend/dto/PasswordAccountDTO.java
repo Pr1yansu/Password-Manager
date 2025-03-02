@@ -23,10 +23,15 @@ public class PasswordAccountDTO extends BaseDTO {
     @NotBlank(message = "Password cannot be blank")
     private String password;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private PasswordStrength strength;
     private String url;
     private String notes;
-    private PasswordStrength icon;
+    private String icon;
     private String color;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private PasswordSecurityDTO security;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<PasswordHistoryDTO> passwordHistories;
