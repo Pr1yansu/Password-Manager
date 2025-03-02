@@ -5,6 +5,7 @@ import com.webweeb.backend.dto.PasswordHistoryDTO;
 import com.webweeb.backend.entity.PasswordAccount;
 import com.webweeb.backend.entity.PasswordHistory;
 import com.webweeb.backend.entity.User;
+import com.webweeb.backend.enums.PasswordStrength;
 import com.webweeb.backend.exception.AppException;
 import com.webweeb.backend.repository.PasswordAccountRepo;
 import com.webweeb.backend.repository.PasswordHistoryRepo;
@@ -36,6 +37,16 @@ public class AccountsService {
     @Autowired
     private UserRepo userRepo;
 
+    private PasswordStrength calculatePasswordStrength(String password) {
+        if (password.length() < 8) {
+            return PasswordStrength.WEAK;
+        }
+        if (password.matches(".*[A-Z].*") && password.matches(".*[a-z].*") && password.matches(".*\\d.*")) {
+            return PasswordStrength.STRONG;
+        }
+        return PasswordStrength.MEDIUM;
+    }
+
     @Transactional
     public PasswordAccountDTO createAccount(PasswordAccountDTO passwordAccountDTO) {
         String authUsername = userService.getAuthenticatedUsername();
@@ -43,6 +54,7 @@ public class AccountsService {
                 .orElseThrow(() -> new AppException("User not found", HttpStatus.NOT_FOUND));
 
         PasswordAccount passwordAccount = modelMapper.map(passwordAccountDTO, PasswordAccount.class);
+        passwordAccount.setStrength(calculatePasswordStrength(passwordAccount.getPassword()));
         passwordAccount.setUser(user);
 
         try {
@@ -78,6 +90,7 @@ public class AccountsService {
                 .toList();
 
         for (PasswordAccount passwordAccount : passwordAccounts) {
+            passwordAccount.setStrength(calculatePasswordStrength(passwordAccount.getPassword()));
             try {
                 String encryptedPassword = EncryptionUtil.encrypt(passwordAccount.getPassword(), user.getSecretKey());
                 passwordAccount.setPassword(encryptedPassword);
@@ -137,6 +150,10 @@ public class AccountsService {
             throw new AppException("Error encrypting password", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        if (!existingAccount.getPassword().equals(passwordAccountDTO.getPassword())) {
+            existingAccount.setStrength(calculatePasswordStrength(passwordAccountDTO.getPassword()));
+        }
+
         PasswordAccount savedAccount = passwordAccountRepo.save(existingAccount);
         return mapFromEntity(savedAccount);
     }
@@ -174,6 +191,9 @@ public class AccountsService {
                 existingAccount.setUsername(dto.getUsername());
                 String encryptedPassword = EncryptionUtil.encrypt(dto.getPassword(), user.getSecretKey());
                 existingAccount.setPassword(encryptedPassword);
+                if (!existingAccount.getPassword().equals(dto.getPassword())) {
+                    existingAccount.setStrength(calculatePasswordStrength(dto.getPassword()));
+                }
                 existingAccount.setUser(user);
 
             } catch (Exception e) {
