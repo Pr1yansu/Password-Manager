@@ -1,6 +1,5 @@
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { cookies } from "next/headers";
 import {
   Card,
   CardContent,
@@ -8,38 +7,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import PasswordDetailsForm from "@/components/forms/password-details-form";
 import PasswordHistoryTable from "@/components/tables/password-history-table";
 import PasswordSecurityAnalysis from "@/components/tabs/security-analysis";
+import DetailsTabList from "@/components/tabs/details-tab-list";
 
-export default function PasswordDetail({ params }: { params: { id: string } }) {
+export default async function PasswordDetail({
+  params,
+}: {
+  params: { id: string };
+}) {
   const id = decodeURIComponent(params.id);
-
+  const cookieStore = await cookies();
+  const defaultValue = cookieStore.get("tab_state")?.value;
   return (
-    <div className="min-h-screen">
-      <header className="bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
-        <div className="container mx-auto px-4 pb-3 flex items-center">
-          <Link
-            href="/"
-            className="flex items-center text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Vault
-          </Link>
-        </div>
-      </header>
-
+    <section className="min-h-screen">
       <main className="container mx-auto px-4 py-6">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-2xl font-bold mb-6 capitalize">{id}</h1>
 
-          <Tabs defaultValue="details">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
-              <TabsTrigger value="details">Details</TabsTrigger>
-              <TabsTrigger value="history">Password History</TabsTrigger>
-              <TabsTrigger value="security">Security</TabsTrigger>
-            </TabsList>
+          <Tabs defaultValue={defaultValue || "details"}>
+            <DetailsTabList />
 
             <TabsContent value="details">
               <Card>
@@ -83,6 +71,6 @@ export default function PasswordDetail({ params }: { params: { id: string } }) {
           </Tabs>
         </div>
       </main>
-    </div>
+    </section>
   );
 }

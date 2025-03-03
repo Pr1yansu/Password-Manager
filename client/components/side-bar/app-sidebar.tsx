@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/sidebar";
 import { LayoutDashboard, List, Settings2, Shield, User2 } from "lucide-react";
 import Link from "next/link";
+import { SwitchMode } from "../ui/toggle-mode";
 
 const SideBarItems = [
   {
@@ -60,7 +61,7 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenuButton
                 tooltip={item.title}
                 title={item.title}
-                className="hover:bg-black/10 group hover:text-primary text-zinc-800 transition-all duration-300"
+                className="hover:bg-black/10 dark:hover:bg-white/10 dark:text-zinc-50 group hover:text-primary dark:hover:text-primary text-zinc-800 transition-all duration-200"
               >
                 <item.icon />
                 <span className="text-sm font-medium">{item.title}</span>
@@ -68,9 +69,10 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </Link>
           ))}
         </SidebarGroup>
-        <SidebarGroup />
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter>
+        <SwitchMode />
+      </SidebarFooter>
     </Sidebar>
   );
 }

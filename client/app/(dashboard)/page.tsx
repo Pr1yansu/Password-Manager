@@ -1,8 +1,8 @@
 import PasswordCard from "@/components/card/password-card";
-import { Button } from "@/components/ui/button";
+import { AddPasswordForm } from "@/components/forms/add-password-form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import React from "react";
 
 const Home = () => {
@@ -21,10 +21,7 @@ const Home = () => {
               className="pl-10 max-w-96 w-full"
             />
           </div>
-          <Button>
-            <Plus />
-            Add Password
-          </Button>
+          <AddPasswordForm />
         </div>
       </div>
       <Separator className="my-2" />

@@ -1,9 +1,24 @@
+"use client";
 import React from "react";
 import { Progress } from "@/components/ui/progress";
-import { AlertTriangle, Clock, RefreshCw } from "lucide-react";
+import { AlertTriangle, Clock, Loader2, RefreshCw, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const PasswordSecurityAnalysis = () => {
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [generated, setGenerated] = React.useState<string | null>(null);
+
+  const generateStrongPassword = () => {
+    const charset =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
+    let password = "";
+    for (let i = 0; i < 16; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset[randomIndex];
+    }
+    return password;
+  };
+
   return (
     <>
       <div>
@@ -90,9 +105,33 @@ const PasswordSecurityAnalysis = () => {
         </div>
       </div>
 
-      <Button className="w-full">
-        <RefreshCw className="h-4 w-4 mr-2" />
-        Generate New Strong Password
+      {generated && (
+        <p className="bg-gray-100 dark:bg-zinc-900 text-muted-foreground text-sm font-medium rounded-lg p-2 mt-4 text-center leading-7 tracking-[1em] show-selection relative">
+          {generated}
+          <X
+            className="size-8 absolute right-0 top-1/2 -translate-1/2 cursor-pointer hover:bg-white dark:hover:bg-zinc-800 rounded-full p-1"
+            onClick={() => setGenerated(null)}
+          />
+        </p>
+      )}
+
+      <Button
+        className="w-full"
+        disabled={loading}
+        onClick={() => {
+          setLoading(true);
+          setTimeout(() => {
+            setGenerated(generateStrongPassword());
+            setLoading(false);
+          }, 1200);
+        }}
+      >
+        {loading ? "Generating..." : "Generate Strong Password"}
+        {loading ? (
+          <Loader2 className="size-5 ml-2 animate-spin" />
+        ) : (
+          <RefreshCw className="size-5 ml-2" />
+        )}
       </Button>
     </>
   );
