@@ -24,8 +24,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { usePathname } from "next/navigation";
-import { AUTH_ROUTES } from "@/routes";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -161,15 +159,7 @@ function Sidebar({
   variant?: "sidebar" | "floating" | "inset";
   collapsible?: "offcanvas" | "icon" | "none";
 }) {
-  const pathname = usePathname();
-
-  const isAuthRoute = AUTH_ROUTES.includes(pathname);
-
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
-
-  if (isAuthRoute) {
-    return null;
-  }
 
   if (collapsible === "none") {
     return (
@@ -262,14 +252,6 @@ function SidebarTrigger({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar();
-
-  const pathname = usePathname();
-
-  const isAuthRoute = AUTH_ROUTES.includes(pathname);
-
-  if (isAuthRoute) {
-    return null;
-  }
 
   return (
     <Button
