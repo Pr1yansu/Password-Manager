@@ -3,6 +3,7 @@ package com.webweeb.backend.controller;
 import com.webweeb.backend.dto.PasswordAccountDTO;
 import com.webweeb.backend.response.ApiResponse;
 import com.webweeb.backend.service.AccountsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 @Slf4j
 @RestController
 @RequestMapping("/api/accounts")
+@Tag(name = "Accounts", description = "API for managing password accounts")
 public class AccountsController {
 
     private final AccountsService accountsService;
