@@ -34,7 +34,9 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <main className="min-h-screen bg-gradient-to-br dark:from-background dark:to-zinc-800 from-blue-100 to-blue-40">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
