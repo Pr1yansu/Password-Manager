@@ -33,6 +33,19 @@ public class AccountsController {
         return ResponseEntity.ok(ApiResponse.success(account, "Account retrieved successfully"));
     }
 
+
+    @GetMapping("/weak-passwords")
+    public ResponseEntity<List<PasswordAccountDTO>> getWeakPasswords() {
+        List<PasswordAccountDTO> weakPasswords = accountsService.scanForWeakPasswords();
+        return ResponseEntity.ok(weakPasswords);
+    }
+
+    @GetMapping("/reused-passwords")
+    public ResponseEntity<List<PasswordAccountDTO>> getReusedPasswords() {
+        List<PasswordAccountDTO> reusedPasswords = accountsService.scanForReusedPasswords();
+        return ResponseEntity.ok(reusedPasswords);
+    }
+
     @GetMapping
     public ResponseEntity<Object> getAllAccounts() {
         List<PasswordAccountDTO> accounts = accountsService.getAccounts();

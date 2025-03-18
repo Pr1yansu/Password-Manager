@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -289,6 +290,32 @@ public class AccountsService {
         return accountsToDelete.stream()
                 .map(this::mapFromEntity)
                 .toList();
+    }
+
+    /**
+     * Retrieves a list of all password accounts.
+     *
+     * @return the list of PasswordAccountDTOs
+     */
+    public List<PasswordAccountDTO> scanForWeakPasswords() {
+        List<PasswordAccount> accounts = passwordAccountRepo.findByUser_Username(userService.getAuthenticatedUsername());
+        return accounts.stream()
+                .filter(account -> account.getStrength() == PasswordStrength.WEAK)
+                .map(this::mapFromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Retrieves a list of all password accounts with reused passwords.
+     *
+     * @return the list of PasswordAccountDTOs
+     */
+    public List<PasswordAccountDTO> scanForReusedPasswords() {
+        List<PasswordAccount> accounts = passwordAccountRepo.findByUser_Username(userService.getAuthenticatedUsername());
+        return accounts.stream()
+                .filter(PasswordAccount::isReused)
+                .map(this::mapFromEntity)
+                .collect(Collectors.toList());
     }
 
     /**
