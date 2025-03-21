@@ -215,6 +215,19 @@ export interface components {
             timestamp?: string;
             data?: components["schemas"]["PasswordAccountDTO"];
         };
+        LoginDTO:{
+            username: string;
+            password: string;
+            ipAddress: string;
+            userAgent: string;
+            deviceName: string;
+            deviceType: string;
+            osName: string;
+            osVersion: string;
+            browserName: string;
+            browserVersion: string;
+            location: string;
+        };
         UserDTO: {
             /** Format: uuid */
             readonly id?: string;
@@ -424,7 +437,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["UserDTO"];
+                "application/json": components["schemas"]["LoginDTO"];
             };
         };
         responses: {

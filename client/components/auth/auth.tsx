@@ -1,13 +1,6 @@
 import Link from "next/link";
-import { Shield } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import {Shield} from "lucide-react";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
 
 export default function Auth({
   title,
@@ -21,7 +14,7 @@ export default function Auth({
   type: "login" | "register";
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex flex-col items-center justify-center p-4 w-full">
+    <div className="min-h-screen bg-gradient-to-br dark:from-background dark:to-zinc-800 from-blue-100 to-blue-40 flex flex-col items-center justify-center p-4 w-full">
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center mb-8">
           <Shield className="h-8 w-8 text-primary mr-2" />
