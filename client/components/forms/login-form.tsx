@@ -39,9 +39,8 @@ export default function LoginForm() {
     function onSubmit(values: z.infer<typeof formSchema>) {
         startTransition(()=>{
              loginUser({
-                username: values.username,
+                usernameOrEmail: values.username,
                 password: values.password,
-                email:values.username,
                 ipAddress: "192.168.1.1",
                 userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
                 deviceName: "John's Laptop",
