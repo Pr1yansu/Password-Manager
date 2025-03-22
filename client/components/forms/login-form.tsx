@@ -41,6 +41,7 @@ export default function LoginForm() {
              loginUser({
                 username: values.username,
                 password: values.password,
+                email:values.username,
                 ipAddress: "192.168.1.1",
                 userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
                 deviceName: "John's Laptop",
@@ -113,7 +114,7 @@ export default function LoginForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" loading={isPending}>
                     Log In
                     <ArrowRight className="ml-2 h-4 w-4"/>
                 </Button>
