@@ -216,7 +216,8 @@ export interface components {
             data?: components["schemas"]["PasswordAccountDTO"];
         };
         LoginDTO:{
-            username: string;
+            email: string;
+            username?:string;
             password: string;
             ipAddress: string;
             userAgent: string;
