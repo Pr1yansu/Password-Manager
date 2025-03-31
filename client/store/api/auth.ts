@@ -1,5 +1,5 @@
-import { api } from "@/store/api";
-import type { operations } from "@/api";
+import {api} from "@/store/api";
+import type {operations} from "@/api";
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
