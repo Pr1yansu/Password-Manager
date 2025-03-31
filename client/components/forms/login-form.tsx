@@ -1,14 +1,14 @@
 "use client";
-
 import {z} from "zod";
 import {ArrowRight, Lock, Mail} from "lucide-react";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {useLoginUserMutation} from "@/store/api/auth";
-import {useTransition} from "react";
+import {useEffect, useState, useTransition} from "react";
+import {getIpAddress, getLocation, getUserAgentInfo} from "@/functions";
 
 const formSchema = z.object({
     username: z
@@ -26,7 +26,10 @@ const formSchema = z.object({
 
 export default function LoginForm() {
     const [loginUser] = useLoginUserMutation();
-    const [isPending, startTransition] = useTransition()
+    const [isPending, startTransition] = useTransition();
+    const [mounted, setMounted] = useState(false);
+    const [document, setDocument] = useState<null | Document>(null);
+    const [error, setError] = useState<string | null>(null);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -36,31 +39,55 @@ export default function LoginForm() {
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        startTransition(()=>{
-             loginUser({
+    useEffect(() => {
+        if (mounted && document) {
+            return;
+        }
+        if (typeof window !== "undefined") {
+            setDocument(window.document);
+            setMounted(true);
+        }
+    }, [document, mounted]);
+
+    if (!mounted) {
+        return null;
+    }
+
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        startTransition(async () => {
+            const ipAddress = await getIpAddress();
+            const userAgentInfo = getUserAgentInfo();
+            const locationData = await getLocation();
+
+            const res = await loginUser({
                 usernameOrEmail: values.username,
                 password: values.password,
-                ipAddress: "192.168.1.1",
-                userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-                deviceName: "John's Laptop",
-                deviceType: "Laptop",
-                osName: "Windows",
-                osVersion: "10",
-                browserName: "Chrome",
-                browserVersion: "119.0.0.0",
-                location: "Lagos, Nigeria",
-            }).unwrap().then((result) => {
-                console.log("result", result);
-            }).catch((error) => {
-                 console.log("error", error);
-                form.setError("username", {
-                    type: "manual",
-                    message: error.data?.message || "An error occurred",
-                });
-            });
-        })
+                ipAddress: ipAddress || "Unknown IP",
+                userAgent: userAgentInfo.userAgent,
+                deviceName: userAgentInfo.deviceName,
+                deviceType: userAgentInfo.deviceType,
+                osName: userAgentInfo.osName,
+                osVersion: userAgentInfo.osVersion,
+                browserName: userAgentInfo.browserName,
+                browserVersion: userAgentInfo.browserVersion,
+                location: locationData?.location || "Unknown Location",
+            }).unwrap();
+
+            console.log(res);
+            if (res.success) {
+                const { token } = res.data;
+                if (document) {
+                    document.cookie = `${process.env.NEXT_PUBLIC_COOKIE_KEY}=${token}; path=/`;
+                }
+            } else {
+                setError("Invalid username or password");
+            }
+            setTimeout(() => {
+                setError(null);
+            }, 5000);
+        });
     }
+
 
     return (
         <Form {...form}>
@@ -113,6 +140,7 @@ export default function LoginForm() {
                         </FormItem>
                     )}
                 />
+                {error && <FormMessage>{error}</FormMessage>}
                 <Button type="submit" className="w-full" loading={isPending}>
                     Log In
                     <ArrowRight className="ml-2 h-4 w-4"/>
