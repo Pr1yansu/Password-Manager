@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const SecurityAlertCard = () => {
   return (
-    <Card>
+    <Card className="md:col-span-2 lg:col-span-1">
       <CardHeader className="pb-2">
         <CardTitle className="text-sm font-medium">Security Alerts</CardTitle>
       </CardHeader>

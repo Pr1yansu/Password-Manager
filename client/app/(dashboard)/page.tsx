@@ -8,7 +8,7 @@ import React from "react";
 const Home = () => {
   return (
     <div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-wrap gap-4 mb-4">
         <div>
           <h3 className="text-xl font-semibold">Password Vault</h3>
           <h5 className="text-sm">Manage your saved passwords securely</h5>
