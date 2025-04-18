@@ -1,1 +1,1 @@
-package com.webweeb.backend.enums;public enum RoleType {    USER,    ADMIN,    MODERATOR}
+package com.webweeb.backend.enums;/** * Enum representing different types of user roles. */public enum RoleType {    USER,    ADMIN,    MODERATOR}

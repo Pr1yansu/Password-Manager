@@ -23,7 +23,7 @@ const SecurityActions = () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+          <div className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-lg flex-wrap gap-4">
             <div className="flex items-center">
               <div className="h-10 w-10 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center mr-4">
                 <AlertTriangle className="h-5 w-5 text-red-500" />
@@ -43,7 +43,7 @@ const SecurityActions = () => {
             <Button size="sm">Change Password</Button>
           </div>
 
-          <div className="flex items-center justify-between p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+          <div className="flex items-center justify-between p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg flex-wrap gap-4">
             <div className="flex items-center">
               <div className="h-10 w-10 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center mr-4">
                 <AlertTriangle className="h-5 w-5 text-yellow-500" />

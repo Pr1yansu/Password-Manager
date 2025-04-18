@@ -1,15 +1,12 @@
 package com.webweeb.backend.repository;
 
-import com.webweeb.backend.entity.PasswordAccount;
-import jakarta.validation.constraints.NotBlank;
+import com.webweeb.backend.entity.PasswordGenerator;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
-public interface PasswordAccountRepo extends JpaRepository<PasswordAccount, UUID> {
-    List<PasswordAccount> findByUser_Username(String username);
-
-    boolean existsByPasswordAndUserId(@NotBlank(message = "Password cannot be blank") String password, UUID id);
+public interface PasswordGeneratorRepo extends JpaRepository<PasswordGenerator, UUID> {
+    Optional<PasswordGenerator> findByUser_Username(String userUsername);
 }

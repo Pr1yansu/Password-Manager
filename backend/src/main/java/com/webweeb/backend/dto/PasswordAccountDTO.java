@@ -8,6 +8,11 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * PasswordAccountDTO is a Data Transfer Object that represents a password account.
+ * It contains information about the password account, including the title, username,
+ * password, strength, URL, notes, icon, color, security information, and password histories.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder

@@ -7,6 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * PasswordSecurityDTO is a Data Transfer Object that represents the security information of a password.
+ * It contains information about the password's strength, complexity, whether it has been reused,
+ * and the age of the password.
+ */
 @Data
 @Builder
 @AllArgsConstructor

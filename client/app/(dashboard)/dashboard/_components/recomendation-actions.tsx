@@ -20,7 +20,7 @@ import Link from "next/link";
 
 const RecomendationAndActions = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
       <Card>
         <CardHeader>
           <CardTitle>Security Recommendations</CardTitle>
@@ -31,11 +31,13 @@ const RecomendationAndActions = () => {
             <div className="h-8 w-8 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center flex-shrink-0">
               <AlertTriangle className="h-4 w-4 text-red-500" />
             </div>
-            <div>
-              <p className="font-medium">Enable Two-Factor Authentication</p>
-              <p className="text-sm text-muted-foreground mb-2">
-                Add an extra layer of security to your account
-              </p>
+            <div className="max-lg:flex justify-between w-full flex-wrap">
+              <div>
+                <p className="font-medium">Enable Two-Factor Authentication</p>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Add an extra layer of security to your account
+                </p>
+              </div>
               <Button size="sm" variant="outline">
                 Enable 2FA
               </Button>
@@ -46,11 +48,13 @@ const RecomendationAndActions = () => {
             <div className="h-8 w-8 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center flex-shrink-0">
               <RefreshCw className="h-4 w-4 text-yellow-500" />
             </div>
-            <div>
-              <p className="font-medium">Update Weak Passwords</p>
-              <p className="text-sm text-muted-foreground mb-2">
-                2 of your passwords are weak and should be updated
-              </p>
+            <div className="max-lg:flex justify-between w-full flex-wrap">
+              <div>
+                <p className="font-medium">Update Weak Passwords</p>
+                <p className="text-sm text-muted-foreground mb-2">
+                  2 of your passwords are weak and should be updated
+                </p>
+              </div>
               <Button size="sm" variant="outline">
                 Update Now
               </Button>
@@ -61,11 +65,13 @@ const RecomendationAndActions = () => {
             <div className="h-8 w-8 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center flex-shrink-0">
               <Unlock className="h-4 w-4 text-yellow-500" />
             </div>
-            <div>
-              <p className="font-medium">Fix Reused Passwords</p>
-              <p className="text-sm text-muted-foreground mb-2">
-                You&apos;re using the same password for 4 different accounts
-              </p>
+            <div className="max-lg:flex justify-between w-full flex-wrap">
+              <div>
+                <p className="font-medium">Fix Reused Passwords</p>
+                <p className="text-sm text-muted-foreground mb-2">
+                  You&apos;re using the same password for 4 different accounts
+                </p>
+              </div>
               <Button size="sm" variant="outline">
                 Fix Now
               </Button>

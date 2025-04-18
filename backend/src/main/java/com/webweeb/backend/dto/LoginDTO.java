@@ -6,6 +6,10 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+/**
+ * Data Transfer Object (DTO) for user login information.
+ * This class is used to transfer login data between the client and server.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder

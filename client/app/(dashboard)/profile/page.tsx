@@ -89,14 +89,6 @@ export default function Profile() {
                     </Button>
                     <Button
                       variant="outline"
-                      className="w-full justify-start"
-                      size="sm"
-                    >
-                      <Clock className="mr-2 h-4 w-4" />
-                      Subscription
-                    </Button>
-                    <Button
-                      variant="outline"
                       className="w-full justify-start text-destructive"
                       size="sm"
                     >
