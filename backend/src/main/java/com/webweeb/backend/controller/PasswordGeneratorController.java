@@ -1,0 +1,1 @@
+package com.webweeb.backend.controller;public class PasswordGeneratorController {}

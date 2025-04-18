@@ -1,0 +1,1 @@
+package com.webweeb.backend.service;public class PasswordGeneratorService {}
