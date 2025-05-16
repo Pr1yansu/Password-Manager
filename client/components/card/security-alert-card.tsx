@@ -27,7 +27,7 @@ const SecurityAlertCard = () => {
             </Badge>
           </div>
         </div>
-        <Button variant="link" className="p-0 h-auto mt-3 text-sm">
+        <Button variant="link" className="!p-0 h-auto mt-3 text-sm">
           View all alerts
           <ChevronRight className="h-3 w-3 ml-1" />
         </Button>

@@ -86,7 +86,7 @@ const RecomendationAndActions = () => {
           <CardDescription>Common tasks and shortcuts</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <Link href="/password-generator">
               <Card className="h-full hover:bg-accent transition-colors cursor-pointer">
                 <CardContent className="p-4 flex flex-col items-center justify-center text-center">

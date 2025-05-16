@@ -69,7 +69,7 @@ const SecurityActions = () => {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between flex-wrap gap-2">
         <Button variant="link" className="px-0">
           Learn about data breaches
         </Button>

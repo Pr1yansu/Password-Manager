@@ -8,15 +8,19 @@ import PasswordHealth from "@/components/card/password-health";
 import RecentActivity from "@/components/card/recent-activity";
 import RecomendationAndActions from "./_components/recomendation-actions";
 import SecurityActions from "./_components/security-actions";
+import TextRevealAnimation from "./_components/text-reveal-animation";
 
 export default function Dashboard() {
   const name = "John Doe";
+
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome back, {name}</p>
+          <p className="text-muted-foreground">
+            Welcome back, <TextRevealAnimation id="username" text={name} />
+          </p>
         </div>
         <div className="flex items-center gap-x-4 gap-y-2 flex-wrap">
           <AddPasswordForm />
